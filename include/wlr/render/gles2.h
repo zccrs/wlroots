@@ -15,6 +15,12 @@
 
 struct wlr_egl;
 
+/**
+ * Create a new GLES2 renderer.
+ *
+ * The renderer takes ownership of the wlr_egl, and will clean it up when
+ * destroyed.
+ */
 struct wlr_renderer *wlr_gles2_renderer_create(struct wlr_egl *egl);
 
 struct wlr_egl *wlr_gles2_renderer_get_egl(struct wlr_renderer *renderer);
