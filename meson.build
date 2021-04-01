@@ -98,7 +98,7 @@ wayland_server = dependency('wayland-server', version: '>=1.19')
 wayland_client = dependency('wayland-client')
 drm = dependency('libdrm', version: '>=2.4.105')
 gbm = dependency('gbm', version: '>=17.1.0')
-libinput = dependency('libinput', version: '>=1.14.0')
+libinput = dependency('libinput', version: '>=1.9.0')
 xkbcommon = dependency('xkbcommon')
 udev = dependency('libudev')
 pixman = dependency('pixman-1')
@@ -118,6 +118,13 @@ wlr_deps = [
 	math,
 	rt,
 ]
+
+libinput_ver = libinput.version().split('.')
+add_project_arguments([
+	'-DLIBINPUT_MAJOR=' + libinput_ver[0],
+	'-DLIBINPUT_MINOR=' + libinput_ver[1],
+	'-DLIBINPUT_PATCH=' + libinput_ver[2],
+], language: 'c')
 
 subdir('protocol')
 subdir('render')
