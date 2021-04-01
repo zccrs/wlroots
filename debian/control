@@ -1,4 +1,4 @@
-Source: wlroots
+Source: deepin-wlroots
 Priority: optional
 Maintainer: Sway and related packages team <team+swaywm@tracker.debian.org>
 Uploaders: Guido Günther <agx@sigxcpu.org>, Birger Schacht <birger@rantanplan.org>
@@ -27,6 +27,7 @@ Build-Depends:
  libxkbcommon-dev,
  pkg-config,
  wayland-protocols (>= 1.17),
+ meson (>= 0.56.0),
 Standards-Version: 4.4.1
 Section: libs
 Homepage: https://github.com/swaywm/wlroots
@@ -34,13 +35,13 @@ Vcs-Git: https://salsa.debian.org/swaywm-team/wlroots.git
 Vcs-Browser: https://salsa.debian.org/swaywm-team/wlroots
 Rules-Requires-Root: no
 
-Package: libwlroots-dev
+Package: libdeepin-wlroots-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
  ${misc:Depends},
- libwlroots6 (= ${binary:Version}),
+ libdeepin-wlroots6 (= ${binary:Version}),
  libcap-dev,
  libdrm-dev,
  libegl1-mesa-dev,
@@ -66,7 +67,7 @@ Description: Modular wayland compositor library - development headers
  .
  This package contains the development headers.
 
-Package: libwlroots6
+Package: libdeepin-wlroots6
 Architecture: any
 Multi-Arch: same
 Depends:
@@ -78,7 +79,7 @@ Description: Modular wayland compositor library - shared library
  .
  This package contains the share library.
 
-Package: libwlroots-examples
+Package: libdeepin-wlroots-examples
 Architecture: any
 Depends:
  ${misc:Depends},

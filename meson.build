@@ -1,5 +1,5 @@
 project(
-	'wlroots',
+	'deepin-wlroots',
 	'c',
 	version: '0.13.0',
 	license: 'MIT',
@@ -192,4 +192,5 @@ pkgconfig.generate(lib_wlr,
 	name: meson.project_name(),
 	description: 'Wayland compositor library',
 	variables: wlr_vars,
+	subdirs: 'deepin',
 )
