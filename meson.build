@@ -90,7 +90,7 @@ features = {
 	'xdg-foreign': false,
 }
 
-wayland_server = dependency('wayland-server', version: '>=1.19')
+wayland_server = dependency('wayland-server', version: '>=1.16')
 wayland_client = dependency('wayland-client')
 wayland_protos = dependency('wayland-protocols', version: '>=1.17')
 egl = dependency('egl')
