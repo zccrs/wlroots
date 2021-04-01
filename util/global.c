@@ -22,8 +22,9 @@ void wlr_global_destroy_safe(struct wl_global *global,
 	// arbitrary amount of time before destroying the global as a workaround.
 	// See: https://gitlab.freedesktop.org/wayland/wayland/issues/10
 
-	wl_global_remove(global);
-	wl_global_set_user_data(global, NULL); // safety net
+	// TODO(zccrs): update the libwayland-server to latest.
+	// wl_global_remove(global);
+	// wl_global_set_user_data(global, NULL); // safety net
 
 	struct wl_event_loop *event_loop = wl_display_get_event_loop(display);
 	struct destroy_global_data *data = calloc(1, sizeof(*data));
