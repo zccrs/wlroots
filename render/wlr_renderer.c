@@ -292,3 +292,10 @@ int wlr_renderer_get_drm_fd(struct wlr_renderer *r) {
 	}
 	return r->impl->get_drm_fd(r);
 }
+
+struct wlr_buffer *get_current_buffer(struct wlr_renderer *r) {
+	if (!r->impl->get_current_buffer) {
+		return NULL;
+	}
+	return r->impl->get_current_buffer(r);
+}

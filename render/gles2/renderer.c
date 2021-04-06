@@ -686,6 +686,11 @@ static void gles2_destroy(struct wlr_renderer *wlr_renderer) {
 	free(renderer);
 }
 
+static struct wlr_buffer *gles2_get_current_wlr_buffer(struct wlr_renderer *renderer) {
+    struct wlr_gles2_renderer *r = gles2_get_renderer(renderer);
+    return r->current_buffer ? r->current_buffer->buffer : NULL;
+}
+
 static const struct wlr_renderer_impl renderer_impl = {
 	.destroy = gles2_destroy,
 	.bind_buffer = gles2_bind_buffer,
@@ -709,6 +714,7 @@ static const struct wlr_renderer_impl renderer_impl = {
 	.init_wl_display = gles2_init_wl_display,
 	.blit_dmabuf = gles2_blit_dmabuf,
 	.get_drm_fd = gles2_get_drm_fd,
+	.get_current_buffer = gles2_get_current_wlr_buffer,
 };
 
 void push_gles2_debug_(struct wlr_gles2_renderer *renderer,
@@ -1008,4 +1014,15 @@ bool wlr_gles2_renderer_check_ext(struct wlr_renderer *wlr_renderer,
 		const char *ext) {
 	struct wlr_gles2_renderer *renderer = gles2_get_renderer(wlr_renderer);
 	return check_gl_ext(renderer->exts_str, ext);
+}
+
+struct wlr_gles2_buffer *gles2_get_current_buffer(struct wlr_renderer *wlr_renderer) {
+	struct wlr_gles2_renderer *renderer = gles2_get_renderer(wlr_renderer);
+	return renderer->current_buffer;
+}
+
+struct wlr_gles2_buffer *gles2_get_buffer(struct wlr_renderer *wlr_renderer,
+		struct wlr_buffer *buffer) {
+	struct wlr_gles2_renderer *renderer = gles2_get_renderer(wlr_renderer);
+	return get_buffer(renderer, buffer);
 }

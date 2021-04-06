@@ -128,6 +128,10 @@ struct wlr_texture *gles2_texture_from_wl_drm(struct wlr_renderer *wlr_renderer,
 struct wlr_texture *gles2_texture_from_dmabuf(struct wlr_renderer *wlr_renderer,
 	struct wlr_dmabuf_attributes *attribs);
 
+struct wlr_gles2_buffer *gles2_get_current_buffer(struct wlr_renderer *wlr_renderer);
+struct wlr_gles2_buffer *gles2_get_buffer(struct wlr_renderer *wlr_renderer,
+	struct wlr_buffer *buffer);
+
 void push_gles2_debug_(struct wlr_gles2_renderer *renderer,
 	const char *file, const char *func);
 #define push_gles2_debug(renderer) push_gles2_debug_(renderer, _WLR_FILENAME, __func__)
