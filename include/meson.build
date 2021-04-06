@@ -18,6 +18,6 @@ if not features.get('xdg-foreign')
 endif
 
 install_subdir('wlr',
-	install_dir: get_option('includedir'),
+	install_dir: get_option('includedir') / get_option('includedir-subdir'),
 	exclude_files: exclude_files,
 )

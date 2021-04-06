@@ -21,4 +21,4 @@ ver_h = configure_file(
 	configuration: version_data,
 )
 
-install_headers(conf_h, ver_h, subdir: 'wlr')
+install_headers(conf_h, ver_h, subdir: get_option('includedir-subdir') / 'wlr')

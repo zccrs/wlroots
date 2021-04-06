@@ -192,5 +192,5 @@ pkgconfig.generate(lib_wlr,
 	name: meson.project_name(),
 	description: 'Wayland compositor library',
 	variables: wlr_vars,
-	subdirs: 'deepin',
+	subdirs: get_option('includedir-subdir'),
 )
