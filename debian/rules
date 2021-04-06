@@ -1,5 +1,6 @@
 #!/usr/bin/make -f
 #export DH_VERBOSE = 1
+include /usr/share/dpkg/default.mk
 
 %:
 	dh $@
@@ -12,4 +13,5 @@ override_dh_shlibdeps:
 
 override_dh_dwz:
 
-
+override_dh_makeshlibs:
+	dh_makeshlibs -V "libdeepin-wlroots6 (= ${DEB_VERSION})"
