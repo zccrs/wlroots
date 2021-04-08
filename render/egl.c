@@ -264,8 +264,13 @@ struct wlr_egl *wlr_egl_create_with_drm_fd(int drm_fd) {
 		device_exts_str =
 			egl->procs.eglQueryDeviceStringEXT(egl->device, EGL_EXTENSIONS);
 		if (device_exts_str == NULL) {
-			wlr_log(WLR_ERROR, "eglQueryDeviceStringEXT(EGL_EXTENSIONS) failed");
-			goto error;
+			// wlr_log(WLR_ERROR, "eglQueryDeviceStringEXT(EGL_EXTENSIONS) failed");
+			// goto error;
+			wlr_log(WLR_ERROR, "eglQueryDeviceStringEXT(EGL_EXTENSIONS) failed."
+				"Maybe https://gitlab.freedesktop.org/glvnd/libglvnd/-/merge_requests/235 can help you.");
+			// TODO: Maybe goto error, but for this https://gitlab.freedesktop.org/glvnd/libglvnd/-/merge_requests/235
+			// bug, we can only do this now.
+			egl->exts.EXT_device_drm = false;
 		}
 
 		if (check_egl_ext(device_exts_str, "EGL_MESA_device_software")) {
