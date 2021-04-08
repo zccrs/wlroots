@@ -277,27 +277,30 @@ struct wlr_egl *wlr_egl_create(EGLenum platform, void *remote_display) {
 		device_exts_str =
 			egl->procs.eglQueryDeviceStringEXT(egl->device, EGL_EXTENSIONS);
 		if (device_exts_str == NULL) {
-			wlr_log(WLR_ERROR, "eglQueryDeviceStringEXT(EGL_EXTENSIONS) failed");
-			goto error;
-		}
-
-		if (check_egl_ext(device_exts_str, "EGL_MESA_device_software")) {
-			const char *allow_software = getenv("WLR_RENDERER_ALLOW_SOFTWARE");
-			if (allow_software != NULL && strcmp(allow_software, "1") == 0) {
-				wlr_log(WLR_INFO, "Using software rendering");
-			} else {
-				// Because of a Mesa bug, sometimes EGL_MESA_device_software is
-				// advertised for hardware renderers. See:
-				// https://gitlab.freedesktop.org/mesa/mesa/-/issues/4178
-				// TODO: fail without WLR_RENDERER_ALLOW_SOFTWARE
-				wlr_log(WLR_INFO, "Warning: software rendering may be in use");
-				wlr_log(WLR_INFO, "If you experience slow rendering, "
-					"please check the OpenGL drivers are correctly installed");
+			wlr_log(WLR_ERROR, "eglQueryDeviceStringEXT(EGL_EXTENSIONS) failed."
+				"Maybe https://gitlab.freedesktop.org/glvnd/libglvnd/-/merge_requests/235 can help you.");
+			// TODO: Maybe goto error, but for this https://gitlab.freedesktop.org/glvnd/libglvnd/-/merge_requests/235
+			// bug, we can only do this now.
+			egl->exts.device_drm_ext = false;
+		} else {
+			if (check_egl_ext(device_exts_str, "EGL_MESA_device_software")) {
+				const char *allow_software = getenv("WLR_RENDERER_ALLOW_SOFTWARE");
+				if (allow_software != NULL && strcmp(allow_software, "1") == 0) {
+					wlr_log(WLR_INFO, "Using software rendering");
+				} else {
+					// Because of a Mesa bug, sometimes EGL_MESA_device_software is
+					// advertised for hardware renderers. See:
+					// https://gitlab.freedesktop.org/mesa/mesa/-/issues/4178
+					// TODO: fail without WLR_RENDERER_ALLOW_SOFTWARE
+					wlr_log(WLR_INFO, "Warning: software rendering may be in use");
+					wlr_log(WLR_INFO, "If you experience slow rendering, "
+						"please check the OpenGL drivers are correctly installed");
+				}
 			}
-		}
 
-		egl->exts.device_drm_ext =
-			check_egl_ext(device_exts_str, "EGL_EXT_device_drm");
+			egl->exts.device_drm_ext =
+				check_egl_ext(device_exts_str, "EGL_EXT_device_drm");
+		}
 	}
 
 	if (!check_egl_ext(display_exts_str, "EGL_KHR_no_config_context") &&
