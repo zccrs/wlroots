@@ -173,8 +173,9 @@ struct wlr_egl *wlr_egl_create_with_drm_fd(int drm_fd) {
 		return NULL;
 	}
 
-	if (!check_egl_ext(client_exts_str, "EGL_KHR_platform_gbm")) {
-		wlr_log(WLR_ERROR, "EGL_KHR_platform_gbm not supported");
+	if (!check_egl_ext(client_exts_str, "EGL_KHR_platform_gbm")
+		&& !check_egl_ext(client_exts_str, "EGL_MESA_platform_gbm")) {
+		wlr_log(WLR_ERROR, "EGL_KHR_platform_gbm/EGL_MESA_platform_gbm not supported");
 		return NULL;
 	}
 
